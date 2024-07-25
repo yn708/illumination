@@ -1,0 +1,53 @@
+name: Backendend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'backend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and run Docker containers
+        working-directory: ./backend
+        run: |
+          docker-compose build --no-cache
+          docker-compose up -d
+          docker-compose ps
+
+      - name: Create DB
+        working-directory: ./backend
+        run: docker-compose exec -T backend rails db:create
+
+      - name: Run migrations
+        working-directory: ./backend
+        run: docker-compose exec -T backend rails db:migrate
+
+      - name: Load seed data
+        working-directory: ./backend
+        run: docker-compose exec -T backend rails db:seed
+
+      - name: Run Rubocop
+        working-directory: ./backend
+        run: docker-compose exec -T backend bundle exec rubocop
+
+      - name: Run RSpec
+        working-directory: ./backend
+        run: docker-compose exec -T backend bundle exec rspec
+
+      - name: Stop and remove Docker containers
+        working-directory: ./backend
+        run: docker-compose down

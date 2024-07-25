@@ -1,0 +1,84 @@
+version: '3.9'
+
+services:
+  # フロントエンド（React/Next.js）
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./frontend:/app
+    command: bun run dev -p 4000
+    ports:
+      - '4000:4000'
+    networks:
+      fixed_compose_network:
+        ipv4_address: 172.27.0.2
+
+  #バックエンド（ruby/rails/redis）
+  backend:
+    tty: true
+    stdin_open: true
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./backend:/app
+    ports:
+      - '3000:3000'
+    environment:
+      RAILS_ENV: development
+      TZ: Asia/Tokyo
+      REDIS_URL: redis://redis:6379
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      DB_HOST: 172.27.0.4
+      DB_PORT: 5432
+    depends_on:
+      - db
+      - redis
+    networks:
+      fixed_compose_network:
+        ipv4_address: 172.27.0.3
+
+  # DB(postgresql)
+  db:
+    image: postgres:16.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_development
+      TZ: 'Asia/Tokyo'
+    ports:
+      - '5432:5432'
+    networks:
+      fixed_compose_network:
+        ipv4_address: 172.27.0.4
+
+  # Redis
+  redis:
+    image: redis:6.2
+    command: ['redis-server'] # Redisサーバ起動コマンド
+    ports:
+      - '6379:6379'
+    volumes:
+      - './data/redis:/data'
+    networks:
+      fixed_compose_network:
+        ipv4_address: 172.27.0.5
+
+networks:
+  fixed_compose_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.27.0.0/24
+
+# 永続化ボリュームの定義
+volumes:
+  postgres_data:
