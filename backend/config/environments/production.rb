@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   # config.public_file_server.enabled = false
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present? || ENV['RENDER'].present?
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || ENV['RENDER'].present?
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -90,8 +90,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # Renderからのリクエストを認証
-  config.hosts << "illumination-u3on.onrender.com"
-
+  config.hosts << 'illumination-u3on.onrender.com'
 
   config.cache_store = :redis_cache_store, {
     url: ENV.fetch('REDIS_URL'),

@@ -7,6 +7,6 @@ rm -f /app/tmp/pids/server.pid
 bundle exec rails db:migrate
 
 # 初期データを投入
-bundle exec rails db:seed_fu
+bundle exec rails db:seed
 
 exec "$@"
