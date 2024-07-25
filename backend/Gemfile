@@ -57,3 +57,9 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
 end
+
+
+# redis
+gem 'hiredis'
+gem 'redis'
+gem 'redis-rails'
