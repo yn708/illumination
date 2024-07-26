@@ -50,6 +50,9 @@ FamousQuote.create!(text: "自分に対して素直になれない人は、世�
 
 # アルバート・シュヴァイツァー
 FamousQuote.create!(text: "成功は幸福のカギではない。幸福が成功のカギなのだ。自分のやっていることを愛しているなら、きっと成功するだろう。", quotable: schweitzer)
+FamousQuote.create!(text: "人生には心の避難所が2つある。音楽と猫である", quotable: schweitzer)
+FamousQuote.create!(text: "認められるまでは、嘲笑される。これは真理の常である。", quotable: schweitzer)
+FamousQuote.create!(text: "世界中どこであろうと、振り返ればあなたを必要とする人がいる。", quotable: schweitzer)
 
 # マハトマ・ガンジー
 FamousQuote.create!(text: "もし、過ちを犯す自由がないのならば、自由を持つ価値はない", quotable: gandhi)
@@ -83,7 +86,7 @@ FamousQuote.create!(text: "私は遅くは歩くが、決して後戻りはし�
 FamousQuote.create!(text: "友を作る最善の方法は、自分が友となることだ。", quotable: lincoln)
 
 # マーク・トウェイン
-FamousQuote.create!(text: "20年後、あなたは行動しなかったことよりも、行動したことを後悔するだろう。", quotable: twain)
+FamousQuote.create!(text: "20年後、あなたはやったことよりも、やらなかったことを後悔するだろう。", quotable: twain)
 FamousQuote.create!(text: "正しいことをするのに適切な時期などない。今がその時だ。", quotable: twain)
 
 # ユリウス・カエサル
