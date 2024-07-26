@@ -78,4 +78,9 @@
 
 ## ER 図
 
+![ER図](https://github.com/user-attachments/assets/10ca774e-abac-4615-b631-3f2eaac8ec48)
+
 ## インフラ構成図
+
+![インフラ構成図](https://github.com/user-attachments/assets/6a03529f-50b2-41e3-9749-123f3f49730b)
+
