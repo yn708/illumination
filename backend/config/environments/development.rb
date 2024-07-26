@@ -70,4 +70,11 @@ Rails.application.configure do
 
   # [ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked host: backendエラーの対処
   config.hosts << 'backend'
+
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch('REDIS_URL', 'redis://localhost:6379/0'),
+    namespace: 'cache_development',
+    expires_in: 90.minutes,
+    driver: :hiredis
+  }
 end
