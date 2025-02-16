@@ -90,7 +90,7 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # Renderからのリクエストを認証
-  config.hosts << 'illumination-u3on.onrender.com'
+  config.hosts << 'illumination-e6i9.onrender.com'
 
   config.cache_store = :redis_cache_store, {
     url: ENV.fetch('REDIS_URL'),
