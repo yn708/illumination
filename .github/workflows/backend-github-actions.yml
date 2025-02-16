@@ -24,30 +24,30 @@ jobs:
       - name: Build and run Docker containers
         working-directory: ./backend
         run: |
-          docker-compose build --no-cache
-          docker-compose up -d
-          docker-compose ps
+          docker compose build --no-cache
+          docker compose up -d
+          docker compose ps
 
       - name: Create DB
         working-directory: ./backend
-        run: docker-compose exec -T backend rails db:create
+        run: docker compose exec -T backend rails db:create
 
       - name: Run migrations
         working-directory: ./backend
-        run: docker-compose exec -T backend rails db:migrate
+        run: docker compose exec -T backend rails db:migrate
 
       - name: Load seed data
         working-directory: ./backend
-        run: docker-compose exec -T backend rails db:seed
+        run: docker compose exec -T backend rails db:seed
 
       - name: Run Rubocop
         working-directory: ./backend
-        run: docker-compose exec -T backend bundle exec rubocop
+        run: docker compose exec -T backend bundle exec rubocop
 
       - name: Run RSpec
         working-directory: ./backend
-        run: docker-compose exec -T backend bundle exec rspec
+        run: docker compose exec -T backend bundle exec rspec
 
       - name: Stop and remove Docker containers
         working-directory: ./backend
-        run: docker-compose down
+        run: docker compose down
